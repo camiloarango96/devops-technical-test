@@ -53,10 +53,12 @@ jobs:
           terraform validate
 
       - name: Plan Creation
+        working-directory: ./iac
         run: |
           terraform plan
       
       - name: terraform apply
+        working-directory: ./iac
         run: |
           terraform apply
 
