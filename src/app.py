@@ -6,22 +6,22 @@ from configparser import ConfigParser
 
 app = Flask(__name__)
 
-def config(filename = 'database.ini', section = 'postgresql'):
-    parser = ConfigParser()
-    parser.read(filename)
+# def config(filename = 'database.ini', section = 'postgresql'):
+#     parser = ConfigParser()
+#     parser.read(filename)
     
-    db = {}
-    if parser.has_section(section):
-        params = parser.items(section)
-        for param in params:
-            db[param[0]] = param[1]
-    else:
-        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-    return db
+#     db = {}
+#     if parser.has_section(section):
+#         params = parser.items(section)
+#         for param in params:
+#             db[param[0]] = param[1]
+#     else:
+#         raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+#     return db
 
 conn = None
-print(config())
-print("!!!!!!!!!!!!!!!!!!!!!", os.getenv("USEREXAMPLE"))
+
+
 
 #Index
 @app.route("/")
@@ -38,8 +38,13 @@ def add_client():
     try:
         print(name)
         print(money)
-        params = config()
-        conn = psycopg2.connect(**params)
+        conn = psycopg2.connect(
+            host        =   os.getenv('DB_HOST'),
+            database    =   os.getenv('DB_NAME'),
+            user        =   os.getenv('DB_USERNAME'),
+            password    =   os.getenv('DB_PASSWORD')
+        )
+            
         cur = conn.cursor()
         cur.execute(sql, (name, money))
         id = cur.fetchone()[0]
@@ -57,8 +62,12 @@ def add_client():
 @app.route("/getall", methods=['GET'])
 def get_all():
     try:
-        params = config()
-        conn = psycopg2.connect(**params)
+        conn = psycopg2.connect(
+            host        =   os.getenv('DB_HOST'),
+            database    =   os.getenv('DB_NAME'),
+            user        =   os.getenv('DB_USERNAME'),
+            password    =   os.getenv('DB_PASSWORD')
+        )
         cur = conn.cursor()
         sql = """SELECT * FROM clients;"""
         cur.execute(sql)
@@ -75,8 +84,12 @@ def get_all():
 @app.route("/get/<id_>", methods=['GET'])
 def get_by_id(id_):
     try:
-        params = config()
-        conn = psycopg2.connect(**params)
+        conn = psycopg2.connect(
+            host        =   os.getenv('DB_HOST'),
+            database    =   os.getenv('DB_NAME'),
+            user        =   os.getenv('DB_USERNAME'),
+            password    =   os.getenv('DB_PASSWORD')
+        )
         cur = conn.cursor()
         sql = """SELECT * FROM clients c WHERE 
                     c.id = %s;"""
@@ -94,8 +107,12 @@ def get_by_id(id_):
 @app.route("/getname/<name_>", methods=['GET'])
 def get_by_name(name_):
     try:
-        params = config()
-        conn = psycopg2.connect(**params)
+        conn = psycopg2.connect(
+            host        =   os.getenv('DB_HOST'),
+            database    =   os.getenv('DB_NAME'),
+            user        =   os.getenv('DB_USERNAME'),
+            password    =   os.getenv('DB_PASSWORD')
+        )
         cur = conn.cursor()
         print(name_)
         sql = """SELECT id, name, money FROM clients c WHERE 
@@ -118,5 +135,5 @@ def get_by_name(name_):
             conn.close()
             print('Database connection closed.')
 
-# if __name__ == '__main__':
-#     app.run(host="0.0.0.0", port=80)
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=80)
