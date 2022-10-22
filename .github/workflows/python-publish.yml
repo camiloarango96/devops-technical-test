@@ -20,6 +20,8 @@ jobs:
         - uses: jannekem/run-python-script-action@v1
 
         - name: testvars
+        - uses: actions/setup-python@v2
+        - uses: jannekem/run-python-script-action@v1
           with:
             script: |
               import os 
