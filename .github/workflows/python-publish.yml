@@ -6,28 +6,60 @@ on:
 
 jobs:
     deploy:
-       runs-on: ubuntu-latest
-       strategy:
-         fail-fast: false
-         matrix:
-            python-version: [3.8]
-       steps:
-        - uses: actions/checkout@main
-        - uses: actions/setup-python@v2
-        - name: Initialize Python 3.7
-          uses: actions/setup-python@v1
-          with:
-            python-version: ${{matrix.python-version}}
-        - name: Install dependencies 
-          run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
+      runs-on: ubuntu-latest
+      strategy:
+        fail-fast: false
+        matrix:
+          python-version: [3.8]
+      
+      env:
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-        - name: push to Dockerhub
-          uses: docker/build-push-action/@v1
-          with:
-            username: ${{secrets.DOCKER_USERNAME}}
-            password: ${{secrets.DOCKER_PASSWORD}}
-            repository: ${{secrets.DOCKERHUB__REPO}}
-            tag_with_ref: true
-            labels: ${{ steps.meta.outputs.labels }}
+      steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@v2
+      - name: Initialize Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{matrix.python-version}}
+      - name: Install dependencies 
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: push to Dockerhub
+        uses: docker/build-push-action/@v1
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+          repository: ${{secrets.DOCKERHUB__REPO}}
+          tag_with_ref: true
+          labels: ${{ steps.meta.outputs.labels }}
+      
+      - name: terraform init
+        working-directory: ./iac
+        run: |
+          terraform init
+      
+      - name: terraform validation
+        working-directory: ./iac
+        run: |
+          terraform fmt
+          terraform validate
+
+      - name: Plan Creation
+        run: |
+          terraform plan
+      
+      - name: terraform apply
+        run: |
+          terraform apply
+
+
+
+

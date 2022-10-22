@@ -4,3 +4,4 @@ venv/
 **/.terraform/*
 .terraform.lock.hcl
 *.tfstate
+commandos-k8s.txt
