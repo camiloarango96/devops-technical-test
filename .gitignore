@@ -1,0 +1,6 @@
+.env
+database.ini
+venv/
+**/.terraform/*
+.terraform.lock.hcl
+*.tfstate
