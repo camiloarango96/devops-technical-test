@@ -1,7 +1,7 @@
 from urllib import response
 import boto3 
 
-elb = boto3.client('elb')
+elb = boto3.client('elb', region_name='us-west-1')
 r53 = boto3.client('route53')
 lbs = elb.describe_load_balancers()
 lb_DNS = (lbs['LoadBalancerDescriptions'][0]['DNSName'])
