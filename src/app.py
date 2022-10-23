@@ -21,8 +21,6 @@ app = Flask(__name__)
 
 conn = None
 
-
-
 #Index
 @app.route("/")
 def index():
