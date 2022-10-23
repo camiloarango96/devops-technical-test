@@ -69,6 +69,13 @@ jobs:
           kubectl set env deployment/flask-app DB_HOST=${{ secrets.DB_HOST }} DB_NAME=${{ secrets.DB_NAME }} DB_PASSWORD=${{ secrets.DB_PASSWORD }} DB_USERNAME=${{ secrets.DB_USERNAME }}
           kubectl get svc
 
+      - name: create r53 record
+        working-directory: ./scripts
+        run: |
+          pip install boto3
+          python createRecord.py
+          
+
 
 
 
