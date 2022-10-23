@@ -60,7 +60,7 @@ jobs:
       - name: terraform apply
         working-directory: ./iac
         run: |
-          terraform apply
+          terraform apply -auto-approve
       - name: deploy pods
         working-directory: ./k8s
         run: |
