@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: camiloarango96/devops-technical-test:main
+        image: camiloarango96/devops-technical-test:latest
+        imagePullPolicy: Always
         ports:
         - name: web
           containerPort: 80
