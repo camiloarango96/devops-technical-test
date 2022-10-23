@@ -4,13 +4,20 @@ kind: Service
 metadata:
   name: public-lb
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    #service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:865019410405:certificate/b5ca1c3b-6768-4e28-b87b-a1967be6ec6b 
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
 spec:
   type: LoadBalancer
   selector:
     app: flask-app
   ports:
-    - protocol: TCP
+     
+    - name: http
       port: 80
+      targetPort: 80
+    - name: https
+      port: 443
       targetPort: 80
     
