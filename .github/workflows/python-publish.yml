@@ -39,7 +39,7 @@ jobs:
           password: ${{secrets.DOCKER_PASSWORD}}
           repository: ${{secrets.DOCKERHUB__REPO}}
           tag_with_ref: true
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: latest
       
       - name: terraform init
         working-directory: ./iac
