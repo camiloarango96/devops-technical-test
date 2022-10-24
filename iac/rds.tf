@@ -17,7 +17,7 @@ resource "aws_db_instance" "postgres" {
   skip_final_snapshot   = true
   publicly_accessible   = true
 
-  db_subnet_group_name  = aws_db_subnet_group.db_subnet_group.name
+  #db_subnet_group_name  = aws_db_subnet_group.db_subnet_group.name
 }
 
 
