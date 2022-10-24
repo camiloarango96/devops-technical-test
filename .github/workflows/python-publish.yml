@@ -71,7 +71,6 @@ jobs:
       - name: deploy pods
         working-directory: ./k8s
         run: |
-          python ./scripts/getDBEndpoint.py
           aws eks --region us-east-1 update-kubeconfig --name flask-cluster
           kubectl apply -f .
           kubectl set env deployment/flask-app DB_HOST=DB_HOST DB_NAME=DB_NAME DB_PASSWORD=${{ secrets.DB_PASSWORD }} DB_USERNAME=${{ secrets.DB_USERNAME }}
