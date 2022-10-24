@@ -61,20 +61,20 @@ jobs:
         working-directory: ./iac
         run: |
           terraform apply -var db_user=${{ secrets.DB_USERNAME }} -var db_password=${{ secrets.DB_PASSWORD }} -auto-approve 
-      
-      - name: crear variables de entorno para DB
-        working-directory: ./scripts
-        run: |
-          pip install boto3
-          python getDBEndpoint.py
           
       - name: deploy pods
         working-directory: ./k8s
         run: |
           aws eks --region us-east-1 update-kubeconfig --name flask-cluster
           kubectl apply -f .
-          kubectl set env deployment/flask-app DB_HOST=DB_HOST DB_NAME=DB_NAME DB_PASSWORD=${{ secrets.DB_PASSWORD }} DB_USERNAME=${{ secrets.DB_USERNAME }}
+          kubectl set env deployment/flask-app DB_PASSWORD=${{ secrets.DB_PASSWORD }} DB_USERNAME=${{ secrets.DB_USERNAME }}
           kubectl get svc
+      
+      - name: crear variables de entorno para DB
+        working-directory: ./scripts
+        run: |
+          pip install boto3
+          python getDBEndpoint.py
 
       - name: create r53 record
         working-directory: ./scripts
