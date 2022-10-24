@@ -60,8 +60,7 @@ jobs:
       - name: terraform apply
         working-directory: ./iac
         run: |
-          terraform apply -var db_user=${{ secrets.DB_USERNAME }} -var db_password=${{ secrets.DB_PASSWORD }}
-          terraform apply -auto-approve
+          terraform apply -var db_user=${{ secrets.DB_USERNAME }} -var db_password=${{ secrets.DB_PASSWORD }} -auto-approve 
       - name: deploy pods
         working-directory: ./k8s
         run: |
