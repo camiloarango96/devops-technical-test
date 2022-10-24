@@ -5,19 +5,6 @@ from configparser import ConfigParser
 
 #Este modulo servira para conectarnos a la db, volver a crear la tabla clients y llenarla con 2 clientes
 
-#Datos necesarios para la conexion
-def config(filename = 'database.ini', section = 'postgresql'):
-    parser = ConfigParser()
-    parser.read(filename)
-    
-    db = {}
-    if parser.has_section(section):
-        params = parser.items(section)
-        for param in params:
-            db[param[0]] = param[1]
-    else:
-        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-    return db
 
     
 conn = None
@@ -25,8 +12,12 @@ try:
     #Borro la tabla si existe, luego inserto algunos registros
     sql = """INSERT INTO clients(name, money)
              VALUES(%s, %s) RETURNING id;"""
-    params = config()
-    conn = psycopg2.connect(**params)
+    conn = psycopg2.connect(
+            host        =   os.getenv('DB_HOST'),
+            database    =   os.getenv('DB_NAME'),
+            user        =   os.getenv('DB_USERNAME'),
+            password    =   os.getenv('DB_PASSWORD')
+        )
     cur = conn.cursor()
     print('connected')
     cur.execute('DROP TABLE IF EXISTS clients;')
