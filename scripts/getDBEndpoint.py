@@ -19,3 +19,5 @@ env_file = os.getenv('GITHUB_ENV')
 with open(env_file, "a") as myfile:
     myfile.write(db_host_string)
     myfile.write(db_name_string)
+    
+
