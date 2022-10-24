@@ -1,6 +1,6 @@
 resource "aws_db_subnet_group" "db_subnet_group" {
   name          = "db_subnet_group"
-  subnet_ids    = [aws_subnet.private-us-east-1a.id, aws_subnet.private-us-east-1b.id, aws_subnet.public-us-east-1a.id, public-us-east-1b]
+  subnet_ids    = [aws_subnet.private-us-east-1a.id, aws_subnet.private-us-east-1b.id, aws_subnet.public-us-east-1a.id, aws_subnet.public-us-east-1b.id]
 
   tags = {
     Name = "Grupo de subredes para la db"
