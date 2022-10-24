@@ -9,7 +9,10 @@ host = instances['DBInstances'][0]['Endpoint']['Address']
 
 name = instances['DBInstances'][0]['DBInstanceIdentifier']
 
-print(name)
+db_host_string = "DB_HOST={}".format(host)
+db_name_string = "DB_NAME={}".format(name)
 
-os.environ['DB_HOST'] = host
-os.environ['DB_NAME'] = host
+env_file = os.system('GITHUB_ENV')
+with open(env_file, "a") as myfile:
+    myfile.write(db_host_string)
+    myfile.write(db_name_string)
