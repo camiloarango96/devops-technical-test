@@ -64,7 +64,10 @@ jobs:
       
       - name: crear variables de entorno para DB
         working-directory: ./scripts
-        run: python getDBEndpoint.py
+        run: |
+          pip install boto3
+          python getDBEndpoint.py
+          
       - name: deploy pods
         working-directory: ./k8s
         run: |
