@@ -20,7 +20,7 @@ print(db_name_string)
 #     myfile.write(db_host_string)
 #     myfile.write(db_name_string)
     
-cmd = 'kubectl set env deployment/flask-app DB_HOST=postgres DB_NAME={}'.format(host, name)
+cmd = 'kubectl set env deployment/flask-app DB_HOST={}} DB_NAME=postgres'.format(host, name)
 
 os.system('aws eks --region us-east-1 update-kubeconfig --name flask-clusterkubectl apply -f .')
 os.system(cmd)
