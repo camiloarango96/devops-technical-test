@@ -15,7 +15,7 @@ db_name_string = "DB_NAME={}".format(name)
 print(db_host_string)
 print(db_name_string)
 
-env_file = os.system('GITHUB_ENV')
-with open(env_file, "w") as myfile:
+env_file = os.getenv('GITHUB_ENV')
+with open(env_file, "a") as myfile:
     myfile.write(db_host_string)
     myfile.write(db_name_string)
