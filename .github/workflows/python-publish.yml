@@ -55,7 +55,7 @@ jobs:
       - name: Plan Creation
         working-directory: ./iac
         run: |
-          terraform plan
+          terraform plan -var db_user=${{ secrets.DB_USERNAME }} -var db_password=${{ secrets.DB_PASSWORD }} -input=false
       
       - name: terraform apply
         working-directory: ./iac
