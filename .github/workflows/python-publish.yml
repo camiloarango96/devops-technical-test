@@ -83,7 +83,7 @@ jobs:
           python createRecord.py
 
       - name: crecion de monitoreo
-        working-directory: ./monitoreo
+        working-directory: ./monitoring
         run: |
           aws eks --region us-east-1 update-kubeconfig --name flask-cluster
           aws eks update-cluster-config \
