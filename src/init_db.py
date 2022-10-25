@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from configparser import ConfigParser
+
 
 
 #Este modulo servira para conectarnos a la db, volver a crear la tabla clients y llenarla con 2 clientes
