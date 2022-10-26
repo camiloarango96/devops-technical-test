@@ -1,30 +1,3 @@
-resource "aws_db_subnet_group" "db_subnet_group" {
-  name          = "db_subnet_group"
-  subnet_ids    = [aws_subnet.rds-subnet-a.id, aws_subnet.rds-subnet-b.id]
-
-  tags = {
-    Name = "Grupo de subredes para la db"
-  }
-}
-
-resource "aws_security_group" "rds_sg" {
-  name = "grupo de seguridad para db postgres"
-  vpc_id      = aws_vpc.rds.id
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  
-}
 
 resource "aws_db_instance" "postgres" {
   allocated_storage     = 10
