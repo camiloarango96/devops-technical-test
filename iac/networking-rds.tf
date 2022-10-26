@@ -1,8 +1,8 @@
 resource "aws_vpc" "rds" {
   cidr_block = "10.0.0.0/16"
 
-  enable_dns_support = true
-  enable_dns_hostnames = true
+#   enable_dns_support = true
+#   enable_dns_hostnames = true
 
   tags = {
     Name = "rds"
@@ -11,13 +11,13 @@ resource "aws_vpc" "rds" {
 
 resource "aws_subnet" "rds-subnet-a" {
   vpc_id            = aws_vpc.rds.id
-  cidr_block        = "10.0.0.0/19"
+  cidr_block        = "10.0.32.0/19"
   availability_zone = "us-east-1a"
 }
 
 resource "aws_subnet" "rds-subnet-b" {
   vpc_id            = aws_vpc.rds.id
-  cidr_block        = "10.0.32.0/19"
+  cidr_block        = "10.0.64.0/19"
   availability_zone = "us-east-1b"
 }
 
@@ -51,7 +51,7 @@ resource "aws_security_group" "rds_sg" {
 
 
 resource "aws_internet_gateway" "rds-igw" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.rds.id
 
   tags = {
     Name = "igw"
