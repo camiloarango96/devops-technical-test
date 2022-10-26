@@ -21,10 +21,15 @@ resource "aws_vpc" "rds" {
   }
 }
 
-resource "aws_subnet" "rds-subnet" {
+resource "aws_subnet" "rds-subnet-a" {
   vpc_id            = aws_vpc.rds.id
   cidr_block        = "10.0.0.0/19"
   availability_zone = "us-east-1a"
 }
 
+resource "aws_subnet" "rds-subnet-b" {
+  vpc_id            = aws_vpc.rds.id
+  cidr_block        = "10.0.32.0/19"
+  availability_zone = "us-east-1b"
+}
 
