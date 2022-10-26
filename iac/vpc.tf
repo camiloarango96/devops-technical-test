@@ -32,9 +32,14 @@ resource "aws_vpc" "rds" {
 
   enable_dns_support = true
   enable_dns_hostnames = true
-  default_security_group_id = aws_security_group.rds_sg.id
 
   tags = {
-    Name = "main"
+    Name = "rds"
   }
+}
+
+resource "aws_subnet" "rds-subnet" {
+  vpc_id            = aws_vpc.rds
+  cidr_block        = "10.0.0.0/19"
+  availability_zone = "us-east-1a"
 }
