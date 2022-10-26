@@ -26,3 +26,5 @@ resource "aws_subnet" "rds-subnet" {
   cidr_block        = "10.0.0.0/19"
   availability_zone = "us-east-1a"
 }
+
+
