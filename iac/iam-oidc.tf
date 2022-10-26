@@ -1,3 +1,5 @@
+#Se crea un OIDC para el cluster
+
 data "tls_certificate" "eks" {
   url = aws_eks_cluster.flask-cluster.identity[0].oidc[0].issuer
 }

@@ -1,3 +1,4 @@
+#Creacion de subredes requeridas por eks
 #EKS requiere de 4 subredes, 2 publicas y 2 privadas
 #Tienen que haber en varias AZ
 resource "aws_subnet" "private-us-east-1a" {

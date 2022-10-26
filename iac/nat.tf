@@ -1,3 +1,5 @@
+#Se crea un NAT, se neceseita para la conexion de cluster con internet
+
 resource "aws_eip" "nat" {
   vpc = true
 

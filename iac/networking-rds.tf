@@ -1,3 +1,6 @@
+#Se crean todos los recursos de red necesarios para garantizar que se pueda conectar con la BD
+#PAra esto se necesitan: Una VPC, 2 subredes, un internet gateway, route tables y un security group
+
 resource "aws_vpc" "rds" {
   cidr_block = "10.0.0.0/16"
 

@@ -1,3 +1,6 @@
+#Creacion del cluster de k8s
+#Es necesario asignarle ciertas politicas para su funcionamiento
+
 resource "aws_iam_role" "eks-role" {
   name = "eks-cluster-role"
 

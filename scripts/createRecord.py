@@ -1,5 +1,9 @@
-from enum import Flag
-from urllib import response
+'''
+En este script se obtiene el endpoint del balanceador de carga creado por k8s,
+para luego crear un record en r53, esto con el objetivo de poder ingresar a la app
+usando un dominio de r53 y su certificado
+
+'''
 import boto3 
 
 elb = boto3.client('elb', region_name='us-east-1')
@@ -25,7 +29,7 @@ except Exception as error:
     print(str(error))
     raise
 
-if Flag is None:
+if flag is None:
 
     response = r53.change_resource_record_sets(
         HostedZoneId = 'Z0980157NFULAKVHAECQ',

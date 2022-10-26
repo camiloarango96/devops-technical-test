@@ -1,3 +1,6 @@
+#Este script es necesario para injectar al deplyment de k8s las variables necesarias para la conexion con la BD
+#Adicionalmente inicializa la base de datos, es decir crea la tabla necesaria e inserta algunos datos de prueba
+
 import boto3
 import os 
 import psycopg2
@@ -16,10 +19,6 @@ db_name_string = "DB_NAME={}".format(name)
 print(db_host_string)
 print(db_name_string)
 
-# env_file = os.getenv('GITHUB_ENV')
-# with open(env_file, "a") as myfile:
-#     myfile.write(db_host_string)
-#     myfile.write(db_name_string)
     
 cmd = 'kubectl set env deployment/flask-app DB_HOST={} DB_NAME=postgres'.format(host)
 

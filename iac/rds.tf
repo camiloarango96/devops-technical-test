@@ -1,4 +1,4 @@
-
+#Creacion de de base de datos
 resource "aws_db_instance" "postgres" {
   allocated_storage     = 10
   #db_name               = var.db_name

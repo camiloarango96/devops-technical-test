@@ -1,3 +1,5 @@
+#Se crea un node group, que son la(s) instacia(s) donde estaran los pods de k8s
+
 resource "aws_iam_role" "nodes" {
   name = "eks-node-group-nodes"
 

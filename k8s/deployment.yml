@@ -1,3 +1,4 @@
+#Se indica el deplyment de la app, la imagen que usara es la generada por el workflow de github actions
 ---
 apiVersion: apps/v1
 kind: Deployment
