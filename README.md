@@ -37,7 +37,7 @@ Se requieren de credenciales para AWS, las cuales serán guardadas como secrets 
 # Arquitectura 
 ![alt text](https://github.com/camiloarango96/devops-technical-test/blob/main/arqui.png?raw=true)
 
-Aquí se observa la arquitectura que tendrá la aplicación, en primer lugar esta el dominio, el cual tiene un record de tipo CNAME para apuntar al DNS del Balanceador de carga creado por kubernetes. Para dar acceso a internet al cluster de EKS es necesario crear VPC públicas en 2 zonas de disponibilidad, en mi caso fue en us-east-1a y us-east-1b, estas zonas cuentan con una route table, en la cual se indica que todo el tráfico que reciban, se envía al Internet Gateway, luego se tienen 2 VPC privadas, una en la AZ us-east-1a y la otra en us-east-1b, estas VPC cuentan con una route table en la que se indica que todo el tráfico se debe enviar al NAT Gateway. También se tiene el cluster de EKS, el cual cuenta inicialmente con 2 nodos, pero que puede escalar hasta 5 nodos. En estos nodos se encuentran algunos pods encargados enviar los logs a CloudWatch, pero tambien están los pods de la app de Flask, estos pods específicamente, se conectaran con la base de datos postgres, la cual se encuentra en una VPC aparte.
+Aquí se observa la arquitectura que tendrá la aplicación, en primer lugar esta el dominio, el cual tiene un record de tipo CNAME para apuntar al DNS del Balanceador de carga creado por kubernetes. Para dar acceso a internet al cluster de EKS es necesario crear VPC públicas en 2 zonas de disponibilidad, en mi caso fue en us-east-1a y us-east-1b, estas zonas cuentan con una route table, en la cual se indica que todo el tráfico que reciban, se envía al Internet Gateway, luego se tienen 2 VPC privadas, una en la AZ us-east-1a y la otra en us-east-1b, estas VPC cuentan con una route table en la que se indica que todo el tráfico se debe enviar al NAT Gateway. También se tiene el cluster de EKS, el cual cuenta inicialmente con 2 nodos, pero que puede escalar hasta 5 nodos. En estos nodos se encuentran algunos pods encargados enviar los logs a CloudWatch, pero tambien están los pods de la app de Flask, estos pods específicamente, se conectaran con la base de datos postgres, la cual se encuentra en una VPC aparte, para esta BD se tiene un Intenet Gateway, el cual permite que se puedan hacer conexiones y consultar o insertar infomacion en la tabla .
 
 
 # Pipeline
@@ -62,7 +62,7 @@ En este último paso es necesario habilitar el logging de EKS, una vez se hace e
 
 # Uso de la aplicación
 
-```python
+```
 [GET] flask.olimac.link/getall
 Devuelve todos los registros de la base de datos (id, nombre y dinero)
 
