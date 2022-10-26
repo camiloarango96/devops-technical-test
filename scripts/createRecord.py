@@ -11,7 +11,6 @@ r53 = boto3.client('route53')
 lbs = elb.describe_load_balancers()
 lb_DNS = (lbs['LoadBalancerDescriptions'][0]['DNSName'])
 
-##print(lb_DNS)
 
 paginator = r53.get_paginator('list_resource_record_sets')
 flag = None
@@ -21,7 +20,6 @@ try:
     for record_set in source_zone_records:
         for record in record_set['ResourceRecordSets']:
             if record['Type'] == 'CNAME':
-                print(record['Name'])
                 flag = True
 
 except Exception as error:
