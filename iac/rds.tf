@@ -1,11 +1,11 @@
-# resource "aws_db_subnet_group" "db_subnet_group" {
-#   name          = "db_subnet_group"
-#   subnet_ids    = [aws_subnet.private-us-east-1a.id, aws_subnet.private-us-east-1b.id, aws_subnet.public-us-east-1a.id, aws_subnet.public-us-east-1b.id]
+resource "aws_db_subnet_group" "db_subnet_group" {
+  name          = "db_subnet_group"
+  subnet_ids    = [aws_subnet.rds-subnet.id]
 
-#   tags = {
-#     Name = "Grupo de subredes para la db"
-#   }
-# }
+  tags = {
+    Name = "Grupo de subredes para la db"
+  }
+}
 
 resource "aws_security_group" "rds_sg" {
   name = "grupo de seguridad para db postgres"
@@ -35,7 +35,7 @@ resource "aws_db_instance" "postgres" {
   skip_final_snapshot   = true
   port                  = 5432
   publicly_accessible   = true
-  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  db_subnet_group_name = aws_db_subnet_group.db_subnet_group.id
 
 }
 
