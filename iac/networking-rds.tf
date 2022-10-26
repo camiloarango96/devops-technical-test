@@ -11,7 +11,13 @@ resource "aws_vpc" "rds" {
 
 resource "aws_subnet" "rds-subnet-a" {
   vpc_id            = aws_vpc.rds.id
-  cidr_block        = "10.0.32.0/16"
+  cidr_block        = "10.0.0.0/19"
+  availability_zone = "us-east-1a"
+}
+
+resource "aws_subnet" "rds-subnet2-a" {
+  vpc_id            = aws_vpc.rds.id
+  cidr_block        = "10.0.32.0/19"
   availability_zone = "us-east-1a"
 }
 
@@ -21,10 +27,16 @@ resource "aws_subnet" "rds-subnet-b" {
   availability_zone = "us-east-1b"
 }
 
+resource "aws_subnet" "rds-subnet2-b" {
+  vpc_id            = aws_vpc.rds.id
+  cidr_block        = "10.0.96.0/16"
+  availability_zone = "us-east-1b"
+}
+
 resource "aws_db_subnet_group" "db_subnet_group" {
   name          = "db_subnet_group"
-  subnet_ids    = [aws_subnet.rds-subnet-a.id, aws_subnet.rds-subnet-b.id]
-
+  subnet_ids    = [aws_subnet.rds-subnet-a.id, aws_subnet.rds-subnet-b.id, aws_subnet.rds-subnet2-a.id, aws_subnet.rds-subnet2-b.id]
+  vpc = aws_vpc.rds.id
   tags = {
     Name = "Grupo de subredes para la db"
   }
