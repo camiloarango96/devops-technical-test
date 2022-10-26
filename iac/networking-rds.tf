@@ -93,3 +93,5 @@ resource "aws_route_table_association" "rds-subnet-b" {
   subnet_id      = aws_subnet.rds-subnet-b.id
   route_table_id = aws_route_table.rds-public.id
 }
+
+
