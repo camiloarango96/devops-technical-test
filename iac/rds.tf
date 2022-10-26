@@ -9,6 +9,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 
 resource "aws_security_group" "rds_sg" {
   name = "grupo de seguridad para db postgres"
+  vpc_id      = aws_vpc.rds.id
   ingress {
     from_port   = 5432
     to_port     = 5432
