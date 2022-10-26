@@ -9,7 +9,8 @@ resource "aws_db_instance" "postgres" {
   skip_final_snapshot   = true
   port                  = 5432
   publicly_accessible   = true
-  db_subnet_group_name = aws_db_subnet_group.db_subnet_group.id
+  db_subnet_group_name  = aws_db_subnet_group.db_subnet_group.id
+  security_group_names  = aws_security_group.rds_sg
 
 }
 
