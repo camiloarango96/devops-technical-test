@@ -1,6 +1,3 @@
-#Creacion del autoscaler de k8s
-#Es necesario asignarle ciertas politicas para su funcionamiento
-
 data "aws_iam_policy_document" "eks_cluster_autoscaler_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]

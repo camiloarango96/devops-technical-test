@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: flask-app
 spec:
-  replicas: 1
+  replicas: 7
   selector:
     matchLabels:
       app: flask-app
@@ -40,8 +40,3 @@ spec:
                 operator: In
                 values:
                 - general
-      # tolerations:
-      # - key: team
-      #   operator: Equal
-      #   value: devops
-      #   effect: NoSchedule
