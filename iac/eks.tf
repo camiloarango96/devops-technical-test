@@ -20,6 +20,7 @@ resource "aws_iam_role" "eks-role" {
 POLICY
 }
 
+#Necesaria para monitoreo
 resource "aws_iam_role_policy_attachment" "EKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role = aws_iam_role.eks-role.name
