@@ -4,10 +4,10 @@ import os
 policyArn = os.popen('terraform output').read()
 
 policyArn = policyArn.split('=')
-
-policyArn = policyArn
-
+print(policyArn)
 policyArn = policyArn[1].replace('"', '')
+
+
 
 
 yml = '''
