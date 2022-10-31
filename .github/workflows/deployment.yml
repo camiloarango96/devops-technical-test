@@ -78,6 +78,7 @@ jobs:
       - name: deploy pods
         working-directory: ./k8s
         run: |
+          pip install boto3
           python policyScript.py
           aws eks --region us-east-1 update-kubeconfig --name flask-cluster
           kubectl apply -f .
