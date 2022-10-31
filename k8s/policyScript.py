@@ -1,7 +1,7 @@
 import boto3
 import os 
 
-policyArn = os.popen('terraform output').read()
+policyArn = os.popen('cd ../iac && terraform output').read()
 
 policyArn = policyArn.split('=')
 print(policyArn)
